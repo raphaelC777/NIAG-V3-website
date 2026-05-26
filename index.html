@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>NIAG — Compare insurance quotes from trusted partners</title>
+  <meta name="description" content="Compare auto, home, renters, bundle, and health insurance quotes from trusted partners in 60 seconds. Free. No SSN. No spam.">
+  <link rel="icon" type="image/svg+xml" href="niag_favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <!-- PLACEHOLDER: GTM container would be injected here -->
+  <!-- PLACEHOLDER: Jornaya / TrustedForm scripts would be injected here -->
+</head>
+<body>
+
+  <!-- ============================================
+       HEADER
+       ============================================ -->
+  <header class="header">
+    <div class="header-inner">
+      <a href="/" class="logo" aria-label="NIAG home">
+        <span>NIAG</span>
+        <small>Insurance Assistance Group</small>
+      </a>
+
+      <nav class="nav" aria-label="Primary">
+        <a href="#products" data-i18n="nav.auto" data-open-quote data-product="auto" data-entry="header_nav">Auto</a>
+        <a href="#products" data-i18n="nav.bundle" data-open-quote data-product="bundle" data-entry="header_nav">Bundle</a>
+        <a href="#products" data-i18n="nav.home" data-open-quote data-product="home" data-entry="header_nav">Home</a>
+        <a href="#products" data-i18n="nav.renters" data-open-quote data-product="renters" data-entry="header_nav">Renters</a>
+        <a href="#products" data-i18n="nav.health" data-open-quote data-product="health" data-entry="header_nav">Health</a>
+        <a href="#blog" data-i18n="nav.resources">Resources</a>
+      </nav>
+
+      <div class="header-cta">
+        <div class="lang-toggle" role="tablist" aria-label="Language">
+          <button type="button" data-lang="en">EN</button>
+          <button type="button" data-lang="es">ES</button>
+        </div>
+        <a href="tel:18005551234" class="phone-link" data-location="header" aria-label="Call an expert">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.95.36 1.88.7 2.78a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.11-.45 13 13 0 0 0 2.78.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span data-i18n="nav.callExpert">Call an expert</span>
+        </a>
+        <button class="btn btn-primary btn-sm" data-open-quote data-product="bundle" data-entry="header_cta" data-variant-cta data-i18n="nav.getQuote">Get my quote</button>
+        <button type="button" id="menu-toggle" class="menu-toggle" aria-label="Open menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#0A1F44" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile drawer -->
+  <div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
+    <div class="mobile-drawer-panel">
+      <header>
+        <div class="logo"><span>NIAG</span></div>
+        <button type="button" class="drawer-close" aria-label="Close menu">&times;</button>
+      </header>
+      <a href="#products" data-i18n="nav.auto" data-open-quote data-product="auto" data-entry="mobile_drawer">Auto</a>
+      <a href="#products" data-i18n="nav.bundle" data-open-quote data-product="bundle" data-entry="mobile_drawer">Bundle</a>
+      <a href="#products" data-i18n="nav.home" data-open-quote data-product="home" data-entry="mobile_drawer">Home</a>
+      <a href="#products" data-i18n="nav.renters" data-open-quote data-product="renters" data-entry="mobile_drawer">Renters</a>
+      <a href="#products" data-i18n="nav.health" data-open-quote data-product="health" data-entry="mobile_drawer">Health</a>
+      <a href="#blog" data-i18n="nav.resources">Resources</a>
+      <a href="tel:18005551234" data-location="mobile_drawer" data-i18n="nav.callExpert">Call an expert</a>
+    </div>
+  </div>
+
+  <!-- ============================================
+       HERO
+       ============================================ -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <h1 data-variant-headline>Bundle &amp; save on auto + home insurance.</h1>
+        <p class="sub" data-i18n="hero.subheadline">Compare quotes from trusted insurance partners in 60 seconds. Free. No SSN. No spam.</p>
+        <div class="trust-line">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="hero.trust.free">Free</span></span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="hero.trust.time">60 seconds</span></span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="hero.trust.credit">No credit check</span></span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="hero.trust.ssn">No SSN</span></span>
+        </div>
+
+        <!-- Quote selector card -->
+        <div class="quote-card" id="hero-selector" data-default-aware>
+          <h3 data-i18n="hero.formLabel">Find your match in 60 seconds</h3>
+          <div class="product-grid">
+            <button type="button" class="product-pill active" data-product="bundle">
+              <span class="recommended-tag" data-i18n="hero.recommended">Recommended</span>
+              <span class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l3-7h12l3 7"/><path d="M5 11h14v6H5z"/><circle cx="8" cy="17" r="1.5"/><circle cx="16" cy="17" r="1.5"/></svg>
+              </span>
+              <span data-i18n="hero.product.bundle">Bundle</span>
+            </button>
+            <button type="button" class="product-pill" data-product="auto">
+              <span class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 14l1.5-5h11L19 14"/><path d="M3 14h18v5H3z"/><circle cx="7" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg>
+              </span>
+              <span data-i18n="hero.product.auto">Auto</span>
+            </button>
+            <button type="button" class="product-pill" data-product="home">
+              <span class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>
+              </span>
+              <span data-i18n="hero.product.home">Home</span>
+            </button>
+            <button type="button" class="product-pill" data-product="renters">
+              <span class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9"/><path d="M16 7l3 3"/></svg>
+              </span>
+              <span data-i18n="hero.product.renters">Renters</span>
+            </button>
+            <button type="button" class="product-pill" data-product="health">
+              <span class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-7-11a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 6.5-7 11-7 11z"/></svg>
+              </span>
+              <span data-i18n="hero.product.health">Health</span>
+            </button>
+          </div>
+          <div class="zip-row">
+            <input type="tel" name="zip" inputmode="numeric" maxlength="5" data-i18n-placeholder="hero.zipPlaceholder" placeholder="Enter ZIP code" aria-label="ZIP code">
+            <button type="button" class="btn btn-primary" data-start-button data-i18n="hero.startBtn">Start comparing</button>
+          </div>
+          <span class="recovery">
+            <a href="#" data-recovery="hero" data-i18n="hero.recovery">Already started? Get your quotes back.</a>
+          </span>
+        </div>
+      </div>
+
+      <!-- Visual side: carrier mock -->
+      <div class="hero-visual">
+        <div class="carrier-mock" aria-hidden="true">
+          <div class="carrier-mock-header">
+            <strong data-i18n="carrier.heading">Your match</strong>
+            <span class="pill" data-i18n="carrier.pill">Live partners</span>
+          </div>
+          <div class="carrier-row">
+            <div class="carrier-logo">NA</div>
+            <div>
+              <div class="name" data-i18n="carrier.row1.name">Matched carrier</div>
+              <div class="meta" data-i18n="carrier.row1.meta">Local expert available</div>
+            </div>
+            <span class="action" data-i18n="carrier.action">View</span>
+          </div>
+          <div class="carrier-row">
+            <div class="carrier-logo" style="background:var(--green);">SP</div>
+            <div>
+              <div class="name" data-i18n="carrier.row2.name">Trusted partner</div>
+              <div class="meta" data-i18n="carrier.row2.meta">Coverage options</div>
+            </div>
+            <span class="action" data-i18n="carrier.action">View</span>
+          </div>
+          <div class="carrier-row">
+            <div class="carrier-logo" style="background:var(--navy-secondary);">RC</div>
+            <div>
+              <div class="name" data-i18n="carrier.row3.name">Regional carrier</div>
+              <div class="meta" data-i18n="carrier.row3.meta">Bundle eligible</div>
+            </div>
+            <span class="action" data-i18n="carrier.action">View</span>
+          </div>
+          <div class="disclaimer" data-i18n="carrier.disclaimer">Illustrative preview · Actual options depend on your ZIP and eligibility.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       TRUST STRIP
+       ============================================ -->
+  <div class="trust-strip">
+    <div class="container trust-strip-inner">
+      <div class="trust-strip-label" data-i18n="trust.label">Compare options from trusted insurance partners</div>
+      <div class="trust-badges">
+        <span class="trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L4 6v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V6l-8-4z"/></svg><span data-i18n="trust.secure">Secure process</span></span>
+        <span class="trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 11H5m14 0a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2m14 0V7a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v4"/></svg><span data-i18n="trust.nossn">No SSN required</span></span>
+        <span class="trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="trust.noobligation">No obligation</span></span>
+        <span class="trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/></svg><span data-i18n="trust.licensed">Licensed partner support</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       PRODUCT CARDS
+       ============================================ -->
+  <section id="products">
+    <div class="container">
+      <div class="section-head">
+        <h2 data-i18n="products.heading">What kind of insurance can we help you with?</h2>
+        <p data-i18n="products.sub">Pick a product to start a tailored quote flow.</p>
+      </div>
+      <div class="product-cards">
+        <article class="product-card featured">
+          <span class="badge" data-i18n="hero.recommended">Recommended</span>
+          <div class="pc-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M3 11l3-7h12l3 7"/><path d="M5 11h14v6H5z"/><circle cx="8" cy="17" r="1.5"/><circle cx="16" cy="17" r="1.5"/></svg>
+          </div>
+          <h3 data-i18n="products.bundle.title">Bundle</h3>
+          <p data-i18n="products.bundle.desc">Combine auto + home and compare smarter.</p>
+          <a href="#" class="pc-link" data-product-card="bundle"><span data-i18n="products.bundle.cta">Start bundle quote</span> →</a>
+        </article>
+        <article class="product-card">
+          <div class="pc-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M5 14l1.5-5h11L19 14"/><path d="M3 14h18v5H3z"/><circle cx="7" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg>
+          </div>
+          <h3 data-i18n="products.auto.title">Auto</h3>
+          <p data-i18n="products.auto.desc">Compare options for your car in minutes.</p>
+          <a href="#" class="pc-link" data-product-card="auto"><span data-i18n="products.auto.cta">Start auto quote</span> →</a>
+        </article>
+        <article class="product-card">
+          <div class="pc-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>
+          </div>
+          <h3 data-i18n="products.home.title">Home</h3>
+          <p data-i18n="products.home.desc">Protect your home with trusted coverage options.</p>
+          <a href="#" class="pc-link" data-product-card="home"><span data-i18n="products.home.cta">Start home quote</span> →</a>
+        </article>
+        <article class="product-card">
+          <div class="pc-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9"/><path d="M16 7l3 3"/></svg>
+          </div>
+          <h3 data-i18n="products.renters.title">Renters</h3>
+          <p data-i18n="products.renters.desc">Simple protection for your apartment or rental.</p>
+          <a href="#" class="pc-link" data-product-card="renters"><span data-i18n="products.renters.cta">Start renters quote</span> →</a>
+        </article>
+        <article class="product-card">
+          <div class="pc-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M12 21s-7-4.5-7-11a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 6.5-7 11-7 11z"/></svg>
+          </div>
+          <h3 data-i18n="products.health.title">Health</h3>
+          <p data-i18n="products.health.desc">Explore health coverage options with help from licensed partners.</p>
+          <a href="#" class="pc-link" data-product-card="health"><span data-i18n="products.health.cta">Start health quote</span> →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       HOW IT WORKS
+       ============================================ -->
+  <section class="alt">
+    <div class="container">
+      <div class="section-head">
+        <h2 data-i18n="how.heading">How it works</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">1</span>
+          <h3 data-i18n="how.step1.title">Choose your coverage</h3>
+          <p data-i18n="how.step1.desc">Pick auto, home, bundle, renters, or health to begin.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">2</span>
+          <h3 data-i18n="how.step2.title">Answer a few quick questions</h3>
+          <p data-i18n="how.step2.desc">One question at a time. No paperwork, no SSN.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">3</span>
+          <h3 data-i18n="how.step3.title">Get matched with insurance options</h3>
+          <p data-i18n="how.step3.desc">Compare options or talk to a licensed partner.</p>
+        </div>
+      </div>
+      <p class="steps-footnote" data-i18n="how.footnote">No paperwork. No SSN. No obligation.</p>
+    </div>
+  </section>
+
+  <!-- ============================================
+       TWO COLUMN: Compare online vs Talk to expert
+       ============================================ -->
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <h2 data-i18n="twocol.heading">Two ways to get started</h2>
+      </div>
+      <div class="two-col">
+        <div class="col-card">
+          <h3 data-i18n="twocol.left.title">Compare online</h3>
+          <p data-i18n="twocol.left.desc">Move fast with a simple quote tool built for auto, home, renters, bundle, and health coverage.</p>
+          <button class="btn btn-primary" type="button" data-open-quote data-product="bundle" data-entry="twocol_online">
+            <span data-i18n="twocol.left.cta">Compare online</span>
+          </button>
+        </div>
+        <div class="col-card navy">
+          <h3 data-i18n="twocol.right.title">Talk to an expert</h3>
+          <p data-i18n="twocol.right.desc">Prefer help? Connect with a licensed insurance partner who can walk you through your options.</p>
+          <a href="tel:18005551234" class="btn btn-primary" data-location="twocol_expert">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.95.36 1.88.7 2.78a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.11-.45 13 13 0 0 0 2.78.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span data-i18n="twocol.right.cta">Call an expert</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       MID-PAGE CTA
+       ============================================ -->
+  <section>
+    <div class="container">
+      <div class="mid-cta">
+        <div class="mid-cta-grid">
+          <div>
+            <h2 data-i18n="midcta.heading">Rates and coverage options, matched to your ZIP.</h2>
+            <p data-i18n="midcta.sub">Pick a product, drop in your ZIP, and we'll route you to the right flow.</p>
+          </div>
+          <form id="mid-cta-form" class="mid-cta-form" autocomplete="off">
+            <select name="product" aria-label="Product">
+              <option value="bundle" data-i18n="hero.product.bundle">Bundle</option>
+              <option value="auto" data-i18n="hero.product.auto">Auto</option>
+              <option value="home" data-i18n="hero.product.home">Home</option>
+              <option value="renters" data-i18n="hero.product.renters">Renters</option>
+              <option value="health" data-i18n="hero.product.health">Health</option>
+            </select>
+            <input type="tel" name="zip" maxlength="5" inputmode="numeric" placeholder="ZIP code" data-i18n-placeholder="midcta.zipPh" aria-label="ZIP code">
+            <button type="submit" class="btn btn-primary" data-i18n="midcta.cta">Get started</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       BLOG TABS
+       ============================================ -->
+  <section id="blog" class="alt">
+    <div class="container">
+      <div class="section-head">
+        <h2 data-i18n="blog.heading">Insurance guidance without the jargon</h2>
+        <p data-i18n="blog.sub">Short reads to help you choose, compare, and switch — without the marketing fog.</p>
+      </div>
+      <div class="tab-bar" id="blog-tabs"></div>
+      <div class="article-grid" id="blog-grid"></div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       FAQ
+       ============================================ -->
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <h2 data-i18n="faq.heading">Frequently asked questions</h2>
+        <p data-i18n="faq.sub">Straight answers about how NIAG works and what to expect.</p>
+      </div>
+      <div class="faq">
+        <div class="faq-item"><button class="faq-q" data-i18n="faq.q1">Is NIAG an insurance company?</button><div class="faq-a" data-i18n="faq.a1"></div></div>
+        <div class="faq-item"><button class="faq-q" data-i18n="faq.q2">How does NIAG match me with insurance options?</button><div class="faq-a" data-i18n="faq.a2"></div></div>
+        <div class="faq-item"><button class="faq-q" data-i18n="faq.q3">Will I get spammed?</button><div class="faq-a" data-i18n="faq.a3"></div></div>
+        <div class="faq-item"><button class="faq-q" data-i18n="faq.q4">Do I need to provide my SSN?</button><div class="faq-a" data-i18n="faq.a4"></div></div>
+        <div class="faq-item"><button class="faq-q" data-i18n="faq.q5">Is this free?</button><div class="faq-a" data-i18n="faq.a5"></div></div>
+        <div class="faq-item"><button class="faq-q" data-i18n="faq.q6">Can I compare auto and home together?</button><div class="faq-a" data-i18n="faq.a6"></div></div>
+        <div class="faq-item"><button class="faq-q" data-i18n="faq.q7">Do you support Spanish speakers?</button><div class="faq-a" data-i18n="faq.a7"></div></div>
+        <div class="faq-item"><button class="faq-q" data-i18n="faq.q8">Who may contact me after I submit the form?</button><div class="faq-a" data-i18n="faq.a8"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       BOTTOM CTA
+       ============================================ -->
+  <section class="bottom-cta">
+    <div class="container">
+      <h2 data-i18n="bottom.heading">Ready to compare without the runaround?</h2>
+      <p class="muted" data-i18n="bottom.sub">Start with your ZIP. We'll guide you from there.</p>
+      <div class="quote-card" id="bottom-selector">
+        <h3 data-i18n="hero.formLabel">Find your match in 60 seconds</h3>
+        <div class="product-grid">
+          <button type="button" class="product-pill active" data-product="bundle">
+            <span class="recommended-tag" data-i18n="hero.recommended">Recommended</span>
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l3-7h12l3 7"/><path d="M5 11h14v6H5z"/><circle cx="8" cy="17" r="1.5"/><circle cx="16" cy="17" r="1.5"/></svg>
+            </span>
+            <span data-i18n="hero.product.bundle">Bundle</span>
+          </button>
+          <button type="button" class="product-pill" data-product="auto">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 14l1.5-5h11L19 14"/><path d="M3 14h18v5H3z"/><circle cx="7" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg>
+            </span>
+            <span data-i18n="hero.product.auto">Auto</span>
+          </button>
+          <button type="button" class="product-pill" data-product="home">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>
+            </span>
+            <span data-i18n="hero.product.home">Home</span>
+          </button>
+          <button type="button" class="product-pill" data-product="renters">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9"/><path d="M16 7l3 3"/></svg>
+            </span>
+            <span data-i18n="hero.product.renters">Renters</span>
+          </button>
+          <button type="button" class="product-pill" data-product="health">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-7-11a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 6.5-7 11-7 11z"/></svg>
+            </span>
+            <span data-i18n="hero.product.health">Health</span>
+          </button>
+        </div>
+        <div class="zip-row">
+          <input type="tel" name="zip" inputmode="numeric" maxlength="5" data-i18n-placeholder="hero.zipPlaceholder" placeholder="Enter ZIP code">
+          <button type="button" class="btn btn-primary" data-start-button data-variant-cta data-i18n="nav.getQuote">Get my free quote</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       FOOTER
+       ============================================ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo" style="color:var(--white);">
+            <span>NIAG</span>
+            <small style="color:var(--green);">Insurance Assistance Group</small>
+          </div>
+          <p data-i18n="footer.trust">NIAG helps US consumers connect with licensed insurance partners across auto, home, renters, bundle, and health coverage. No SSN. No spam. No nonsense.</p>
+        </div>
+        <div>
+          <h4 data-i18n="footer.products">Products</h4>
+          <a href="#" data-open-quote data-product="bundle" data-entry="footer" data-i18n="hero.product.bundle">Bundle</a>
+          <a href="#" data-open-quote data-product="auto" data-entry="footer" data-i18n="hero.product.auto">Auto</a>
+          <a href="#" data-open-quote data-product="home" data-entry="footer" data-i18n="hero.product.home">Home</a>
+          <a href="#" data-open-quote data-product="renters" data-entry="footer" data-i18n="hero.product.renters">Renters</a>
+          <a href="#" data-open-quote data-product="health" data-entry="footer" data-i18n="hero.product.health">Health</a>
+        </div>
+        <div>
+          <h4 data-i18n="footer.resources">Resources</h4>
+          <a href="#blog" data-i18n="footer.blog">Resources &amp; Blog</a>
+          <a href="#" data-i18n="footer.help">Help center</a>
+          <a href="tel:18005551234" data-location="footer" data-i18n="nav.callExpert">Call an expert</a>
+          <a href="#" data-recovery="footer" data-i18n="hero.recovery">Get your quotes back</a>
+        </div>
+        <div>
+          <h4 data-i18n="footer.about">About</h4>
+          <a href="#" data-i18n="footer.privacy">Privacy Policy</a>
+          <a href="#" data-i18n="footer.terms">Terms of Use</a>
+          <a href="#" data-i18n="footer.donotsell">Do Not Sell or Share My Personal Information</a>
+          <a href="#" data-i18n="footer.prefs">Privacy Preferences</a>
+          <a href="#" data-i18n="footer.tcpa">TCPA &amp; Consumer Notices</a>
+          <a href="#" data-i18n="footer.adv">Advertising Disclosure</a>
+        </div>
+      </div>
+      <p class="footer-disclaimer" data-i18n="footer.disclaimer">NIAG is not a government agency or insurance carrier. We help connect consumers with insurance partners and licensed professionals. Availability, pricing, and coverage options vary by location, carrier, and individual eligibility. Submitting a form does not guarantee coverage or savings.</p>
+      <div class="footer-bottom">
+        <span data-i18n="footer.copyright">© 2026 NIAG — National Insurance Assistance Group. All rights reserved.</span>
+        <span>
+          <a href="#" data-i18n="footer.privacy">Privacy</a>
+          <a href="#" data-i18n="footer.terms">Terms</a>
+          <a href="#" data-i18n="footer.donotsell">Do Not Sell</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Sticky mobile CTA -->
+  <div class="sticky-cta">
+    <button type="button" class="btn btn-primary" data-open-quote data-product="bundle" data-entry="sticky_mobile" data-i18n="sticky.cta">Get my quote</button>
+  </div>
+
+  <!-- A/B variant indicator (dev only — remove for prod) -->
+  <div class="variant-tag" id="variant-tag" aria-hidden="true"></div>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/tracking.js"></script>
+  <script src="assets/js/i18n.js"></script>
+  <script src="assets/js/forms.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

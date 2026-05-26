@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html, body {
+  background: #FAF7F2;
+  color: #2C2C2A;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-fraunces), Georgia, "Times New Roman", serif;
+  letter-spacing: -0.01em;
+}
+
+/* Utility component classes used across the site */
+@layer components {
+  .container-wide { @apply mx-auto w-full max-w-container px-5; }
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-[10px] border border-transparent px-5 py-3.5 text-base font-semibold leading-none transition; }
+  .btn-primary { @apply btn bg-green text-white shadow-soft hover:bg-green-hover hover:-translate-y-px hover:shadow-card; }
+  .btn-secondary { @apply btn bg-white text-navy border-line hover:bg-sand hover:border-navy; }
+  .btn-ghost { @apply btn bg-transparent text-navy border-navy hover:bg-navy hover:text-white; }
+  .btn-sm { @apply px-4 py-2.5 text-sm; }
+  .btn-lg { @apply px-7 py-4 text-[1.0625rem]; }
+  .card { @apply bg-white border border-line rounded-lg p-6 shadow-soft; }
+  .card-pop { @apply bg-white border border-line rounded-lg p-6 shadow-card; }
+  .pill { @apply inline-flex items-center rounded-full bg-white border border-line px-3 py-1.5 text-xs font-semibold text-ink-soft; }
+  .answer-card { @apply flex items-center justify-between gap-3 rounded-[10px] border-[1.5px] border-line bg-white px-5 py-4 text-left text-base font-medium text-ink transition hover:border-navy hover:bg-cream; }
+  .answer-card.selected { @apply border-green bg-green/[0.06]; }
+  .field-input { @apply w-full rounded-[10px] border-[1.5px] border-line bg-white px-4 py-3.5 text-base outline-none transition focus:border-navy focus:ring-2 focus:ring-navy/10; }
+  .field-label { @apply mb-1.5 block text-sm font-semibold text-ink; }
+  .field-error { @apply mt-1 text-sm text-red-600; }
+}
+
+/* Custom-styled scrollbar in modal overlay */
+.form-overlay { @apply fixed inset-0 z-[200] hidden overflow-y-auto bg-cream; }
+.form-overlay.open { @apply block; }
