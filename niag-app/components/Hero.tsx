@@ -31,8 +31,24 @@ export default function Hero() {
     : null;
 
   return (
-    <section className="border-b border-line bg-gradient-to-b from-cream to-sand pt-12 pb-16">
-      <div className="container-wide grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+    <section className="relative border-b border-line overflow-hidden pt-12 pb-16" style={{ background: "#FAF7F2" }}>
+      {/* Background image with gradient overlay */}
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundImage: "url(/hero-bg.png)",
+          backgroundSize: "cover",
+          backgroundPosition: "center 30%",
+          opacity: 0.32,
+        }}
+      />
+      <div
+        className="absolute inset-0"
+        style={{
+          background: "linear-gradient(to right, #FAF7F2 35%, rgba(250,247,242,0.4) 60%, rgba(250,247,242,0.15) 100%), linear-gradient(to bottom, rgba(250,247,242,0.3) 0%, #FAF7F2 92%)",
+        }}
+      />
+      <div className="container-wide relative z-10 grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
         <div>
           {localChip ? (
             <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-line bg-white px-3 py-1 text-xs font-semibold text-ink-soft">
