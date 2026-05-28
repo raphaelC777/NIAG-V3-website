@@ -329,9 +329,9 @@ export function QuoteFlowProvider({ children }: { children: React.ReactNode }) {
           {/* Minimal header */}
           <div className="sticky top-0 z-10 border-b border-line bg-white">
             <div className="mx-auto flex max-w-[720px] items-center justify-between px-5 py-3.5">
-              <div className="font-serif text-xl font-bold text-navy">
-                NIAG <span className="ml-1 align-middle text-[10px] font-sans font-semibold uppercase tracking-[0.18em] text-green">{t(language, "form.minHeader")}</span>
-              </div>
+              <a href={language === "es" ? "/es" : "/"} onClick={(e) => { e.preventDefault(); close(); router.push(language === "es" ? "/es" : "/"); }} className="inline-flex items-center gap-2 font-serif text-xl font-bold text-navy no-underline hover:opacity-80 transition-opacity">
+                NIAG <span className="align-middle text-[10px] font-sans font-semibold uppercase tracking-[0.18em] text-green">{t(language, "form.minHeader")}</span>
+              </a>
               <button onClick={close} className="text-sm font-medium text-ink-soft hover:text-navy" aria-label="Close">
                 <span className="mr-1.5 text-lg">×</span><span>{t(language, "form.close")}</span>
               </button>

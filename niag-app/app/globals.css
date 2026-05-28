@@ -40,3 +40,55 @@ h1, h2, h3, h4 {
 /* Custom-styled scrollbar in modal overlay */
 .form-overlay { @apply fixed inset-0 z-[200] hidden overflow-y-auto bg-cream; }
 .form-overlay.open { @apply block; }
+
+/* Carrier marquee in TrustStrip */
+@keyframes niag-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.niag-marquee-track {
+  animation: niag-marquee 32s linear infinite;
+}
+.niag-marquee-wrap {
+  -webkit-mask-image: linear-gradient(to right, transparent, black 60px, black calc(100% - 60px), transparent);
+          mask-image: linear-gradient(to right, transparent, black 60px, black calc(100% - 60px), transparent);
+}
+.niag-marquee-wrap:hover .niag-marquee-track {
+  animation-play-state: paused;
+}
+
+/* Footer social icons */
+.niag-social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #FAF7F2;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.niag-social-icon:hover {
+  background: #9FE2C5;
+  color: #0A1F44;
+  border-color: #9FE2C5;
+}
+
+/* Shimmer animation for HeroVisual progress bar */
+@keyframes niag-shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(220%); }
+}
+
+/* Fade-in for accordion answers */
+@keyframes niag-fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .niag-marquee-track { animation: none !important; }
+}

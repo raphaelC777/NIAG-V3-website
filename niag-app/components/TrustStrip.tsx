@@ -1,30 +1,68 @@
 "use client";
 import { useSite } from "./SiteContext";
 import { t } from "@/lib/i18n";
-import { ShieldIcon, LockIcon, CheckIcon, TeamIcon } from "./icons";
+
+const CARRIERS = ["Progressive", "GEICO", "Allstate", "Liberty", "Travelers", "Nationwide", "State Farm", "Farmers", "USAA"];
+
+function CarrierName({ name, idx }: { name: string; idx: number }) {
+  const isAlt = idx % 2 === 1;
+  return (
+    <span
+      className={isAlt ? "font-sans font-bold uppercase" : "font-serif italic font-bold"}
+      style={{
+        fontSize: isAlt ? 13 : 19,
+        letterSpacing: isAlt ? 2 : 0.5,
+        color: "#FAF7F2",
+        whiteSpace: "nowrap",
+        flex: "none",
+        opacity: 0.92,
+      }}
+    >
+      {name}
+    </span>
+  );
+}
+
+function StarIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="14" height="14" fill="#F4B942" stroke="#F4B942" strokeWidth="1">
+      <polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9" />
+    </svg>
+  );
+}
 
 export default function TrustStrip() {
   const { language } = useSite();
   return (
-    <div className="border-t border-b border-line bg-white py-7">
-      <div className="container-wide grid items-center gap-6 md:grid-cols-[auto_1fr]">
-        <div className="max-w-xs text-xs font-semibold uppercase tracking-[0.08em] text-ink-soft">
-          {t(language, "trust.label")}
-        </div>
-        <div className="flex flex-wrap items-center justify-start gap-x-6 gap-y-3 md:justify-end">
-          {[
-            { Icon: ShieldIcon, key: "trust.secure" },
-            { Icon: LockIcon, key: "trust.nossn" },
-            { Icon: CheckIcon, key: "trust.noobligation" },
-            { Icon: TeamIcon, key: "trust.licensed" },
-          ].map(({ Icon, key }) => (
-            <span key={key} className="inline-flex items-center gap-2 text-sm font-medium text-ink">
-              <Icon className="h-[18px] w-[18px] text-green" />
-              <span>{t(language, key)}</span>
-            </span>
-          ))}
+    <section className="bg-navy text-cream" style={{ padding: "24px 0" }}>
+      <div className="mx-auto max-w-container px-5">
+        <div className="flex flex-wrap items-center gap-4">
+          <span className="inline-flex items-center gap-1">
+            <StarIcon /><StarIcon /><StarIcon /><StarIcon /><StarIcon />
+            <span className="ml-1.5 text-sm font-semibold text-cream">4.8</span>
+          </span>
+          <span className="text-[13px]" style={{ color: "rgba(250,247,242,.7)" }}>
+            {t(language, "trust.reviewText")}
+          </span>
+          <span
+            className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[13px] font-semibold"
+            style={{
+              background: "rgba(31,181,115,.16)",
+              border: "1px solid rgba(159,226,197,.35)",
+              color: "#9FE2C5",
+            }}
+          >
+            BBB&nbsp;A+ partners
+          </span>
         </div>
       </div>
-    </div>
+
+      <div className="niag-marquee-wrap" style={{ position: "relative", overflow: "hidden", marginTop: 14 }}>
+        <div className="niag-marquee-track" style={{ display: "inline-flex", alignItems: "center", gap: 44, whiteSpace: "nowrap", willChange: "transform", paddingLeft: 22 }}>
+          {CARRIERS.map((c, i) => <CarrierName key={`a-${i}`} name={c} idx={i} />)}
+          {CARRIERS.map((c, i) => <CarrierName key={`b-${i}`} name={c} idx={i} />)}
+        </div>
+      </div>
+    </section>
   );
 }

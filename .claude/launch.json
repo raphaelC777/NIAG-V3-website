@@ -9,9 +9,8 @@
     },
     {
       "name": "niag-next",
-      "cwd": "niag-app",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", ".claude/start-dev.ps1"],
       "port": 3000
     }
   ]

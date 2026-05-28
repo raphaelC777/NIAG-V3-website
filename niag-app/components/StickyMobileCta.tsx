@@ -18,11 +18,46 @@ export default function StickyMobileCta() {
 
   if (!show) return null;
   return (
-    <div className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-white p-3 shadow-pop md:hidden"
-         style={{ paddingBottom: "calc(env(safe-area-inset-bottom) + 0.75rem)" }}>
-      <button onClick={() => open(defaultProduct, "sticky_mobile")} className="btn-primary w-full">
-        {t(language, "sticky.cta")}
-      </button>
+    <div
+      className="fixed inset-x-0 bottom-0 z-30 md:hidden"
+      style={{
+        padding: "10px 12px",
+        background: "linear-gradient(to top, #FAF7F2 75%, rgba(250,247,242,0))",
+        pointerEvents: "none",
+        paddingBottom: "calc(env(safe-area-inset-bottom) + 10px)",
+      }}
+    >
+      <div
+        style={{
+          margin: "0 auto",
+          maxWidth: 460,
+          pointerEvents: "auto",
+          background: "#0A1F44",
+          borderRadius: 14,
+          padding: "10px 12px",
+          display: "grid",
+          gridTemplateColumns: "1fr auto",
+          gap: 10,
+          alignItems: "center",
+          boxShadow: "0 10px 24px rgba(10,31,68,.22)",
+        }}
+      >
+        <div style={{ minWidth: 0 }}>
+          <div className="font-serif text-sm font-semibold text-cream" style={{ letterSpacing: -0.2 }}>
+            {t(language, "sticky.title")}
+          </div>
+          <div className="truncate text-[11px]" style={{ color: "rgba(250,247,242,.7)" }}>
+            {t(language, "sticky.sub")}
+          </div>
+        </div>
+        <button
+          onClick={() => open(defaultProduct, "sticky_mobile")}
+          className="btn-primary"
+          style={{ height: 48, padding: "0 20px", fontSize: 15, whiteSpace: "nowrap" }}
+        >
+          {t(language, "sticky.cta")}
+        </button>
+      </div>
     </div>
   );
 }

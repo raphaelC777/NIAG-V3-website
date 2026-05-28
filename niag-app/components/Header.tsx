@@ -25,40 +25,39 @@ export default function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-40 bg-cream/95 backdrop-blur-sm border-b border-line">
-      <div className="container-wide flex items-center justify-between gap-4 py-3.5">
-        <Link href={language === "es" ? "/es" : "/"} className="inline-flex items-center gap-2 font-serif text-xl font-bold text-navy tracking-wide">
-          <span>NIAG</span>
-          <span className="hidden sm:block text-[10px] font-sans font-semibold uppercase tracking-[0.18em] text-green">
-            Insurance Assistance Group
-          </span>
+    <header className="sticky top-0 z-40 border-b border-line" style={{ background: "#FAF7F2" }}>
+      <div className="mx-auto flex max-w-container items-center gap-3.5 px-5 py-3" style={{ padding: "12px 22px" }}>
+        <Link href={language === "es" ? "/es" : "/"} className="inline-flex shrink-0" aria-label="NIAG home">
+          <span className="font-serif text-[22px] font-bold text-navy leading-none tracking-tight">NIAG</span>
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-7" aria-label="Primary">
+        <nav className="hidden md:flex items-center gap-1" style={{ marginLeft: 18 }} aria-label="Primary">
           {navItems.map((n) => (
             <button key={n.key}
               onClick={() => { trackEvent(Events.PRODUCT_SELECT, { productType: n.product, entryPoint: "header", language, abVariant: variant }); open(n.product, "header"); }}
-              className="text-[15px] font-medium text-ink hover:text-navy">
+              className="rounded-lg px-3 py-2 text-sm font-medium text-ink-soft transition hover:bg-sand hover:text-navy">
               {t(language, n.key)}
             </button>
           ))}
-          <Link href={language === "es" ? "/es#blog" : "/#blog"} className="text-[15px] font-medium text-ink hover:text-navy">
+          <Link href={language === "es" ? "/es#blog" : "/#blog"} className="rounded-lg px-3 py-2 text-sm font-medium text-ink-soft transition hover:bg-sand hover:text-navy">
             {t(language, "nav.resources")}
           </Link>
         </nav>
 
-        <div className="flex items-center gap-3">
-          <div className="inline-flex overflow-hidden rounded-full border border-line bg-white text-xs">
-            {(["en", "es"] as const).map((l) => (
-              <button key={l}
-                onClick={() => setLanguage(l)}
-                className={`px-3 py-1.5 font-semibold ${language === l ? "bg-navy text-white" : "text-ink-soft"}`}>
-                {l.toUpperCase()}
-              </button>
-            ))}
-          </div>
+        <div className="ml-auto flex items-center gap-2">
+          <button
+            onClick={() => setLanguage(language === "en" ? "es" : "en")}
+            aria-label={language === "en" ? "Switch to Spanish" : "Switch to English"}
+            className="inline-flex items-center gap-1.5 rounded-full border border-line bg-transparent px-3 py-1.5 text-xs font-semibold transition hover:bg-sand hover:border-navy/20"
+            style={{ letterSpacing: 1 }}
+          >
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" className="text-ink-soft"><circle cx="12" cy="12" r="9" /><path d="M3 12h18" /><path d="M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0 -18" /></svg>
+            <span className={language === "en" ? "text-navy" : "text-ink-soft"}>EN</span>
+            <span className="text-line">·</span>
+            <span className={language === "es" ? "text-navy" : "text-ink-soft"}>ES</span>
+          </button>
           <a href="tel:18005551234" onClick={() => callExpert("header")}
-             className="hidden md:inline-flex items-center gap-2 text-sm font-semibold text-navy">
+             className="hidden lg:inline-flex items-center gap-2 text-sm font-semibold text-navy">
             <PhoneIcon className="h-4 w-4" />
             <span>{t(language, "nav.callExpert")}</span>
           </a>
@@ -66,7 +65,7 @@ export default function Header() {
                   className="btn-primary btn-sm hidden md:inline-flex">
             {copy.primaryCTA}
           </button>
-          <button onClick={() => setDrawerOpen(true)} aria-label="Open menu" className="lg:hidden">
+          <button onClick={() => setDrawerOpen(true)} aria-label="Open menu" className="md:hidden">
             <svg viewBox="0 0 24 24" fill="none" stroke="#0A1F44" strokeWidth="2" className="h-7 w-7">
               <path d="M3 6h18M3 12h18M3 18h18" />
             </svg>
