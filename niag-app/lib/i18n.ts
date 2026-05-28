@@ -64,6 +64,16 @@ const en: Dict = {
   "success.back": "Back to homepage",
   "geo.nearby": "Quotes near", "geo.zipMatch": "ZIP-based matching",
   "geo.localMatches": "Local matches update after ZIP",
+  // resume / draft
+  "resume.title": "Continue where you left off?",
+  "resume.body": "We saved your progress on the {product} quote — step {step} of {total}.",
+  "resume.continue": "Continue",
+  "resume.dismiss": "Start over",
+  "resume.product.bundle": "Bundle (Auto + Home)",
+  "resume.product.auto": "Auto",
+  "resume.product.home": "Home",
+  "resume.product.renters": "Renters",
+  "resume.product.health": "Health",
 };
 
 const es: Dict = {
@@ -127,6 +137,16 @@ const es: Dict = {
   "success.back": "Volver al inicio",
   "geo.nearby": "Opciones cerca de", "geo.zipMatch": "Búsqueda por ZIP",
   "geo.localMatches": "Las opciones locales se actualizan al ingresar tu ZIP",
+  // resume / draft
+  "resume.title": "¿Continuar donde quedaste?",
+  "resume.body": "Guardamos tu progreso en la cotización de {product} — paso {step} de {total}.",
+  "resume.continue": "Continuar",
+  "resume.dismiss": "Empezar de nuevo",
+  "resume.product.bundle": "Auto + Hogar",
+  "resume.product.auto": "Auto",
+  "resume.product.home": "Hogar",
+  "resume.product.renters": "Inquilinos",
+  "resume.product.health": "Salud",
 };
 
 export function t(lang: Language, key: string): string {

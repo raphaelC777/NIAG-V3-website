@@ -229,7 +229,85 @@ before calling partners.
 
 ---
 
-## 10. Tracking
+## 10. Partial-form drafts ("continue where you left off")
+
+The form autosaves on every step change. Three discovery paths offer a
+draft back to the user:
+
+1. **`?resume=<draftId>` in the URL** — for SMS/email recovery links.
+2. **`niag_draft_id` httpOnly cookie** — same browser, same device.
+3. **localStorage** — same browser, offline-safe fallback.
+
+### Storage
+
+- **Production:** Vercel KV (or any Upstash-compatible Redis). 7-day TTL.
+  Set `KV_REST_API_URL` + `KV_REST_API_TOKEN`. When you enable Vercel KV
+  in the dashboard, these are auto-injected — no extra config needed.
+- **Local dev:** in-memory map (per process). Restarts wipe drafts.
+
+The store is fronted by [`lib/draftStorage.ts`](lib/draftStorage.ts) with
+a single tiny REST client — no SDK dependency.
+
+### Cookies & privacy
+
+- `niag_draft_id` — httpOnly, secure, SameSite=Lax, 7-day max-age.
+- IP address and user-agent are stored as **audit fields only**, never
+  used as a lookup key. (Same-IP lookup leaks data across users on
+  shared networks.)
+- TCPA consent state is stripped before persistence — users must
+  re-accept consent each session.
+- The UI never displays restored PII before the user clicks "Continue".
+
+### Banner
+
+[`components/ResumeBanner.tsx`](components/ResumeBanner.tsx) renders at
+the top of `/` and `/lp/[slug]` whenever a draft is detected:
+
+> ↩  Continue where you left off?
+> We saved your progress on the Bundle quote — step 4 of 10.
+> [Start over]  [Continue]
+
+The banner shows only the product label + step number, never the user's
+name, ZIP, or contact info.
+
+### Abandonment recovery (Go High Level)
+
+Configure a GHL workflow that fires when a draft sits idle for N
+minutes. Send an SMS / email containing a personalized link:
+
+```
+https://niag.com/form/bundle?resume=<draftId>&utm_source=ghl&utm_campaign=abandon
+```
+
+When the user clicks, `/form/[product]` fetches the draft from KV, drops
+the user right back at the step where they stopped, and pre-fills every
+answer except the TCPA consent.
+
+### Programmatic API
+
+If a future feature needs to trigger resume from JS:
+
+```ts
+import { loadDraftRemote } from "@/lib/draftClient";
+import { useQuoteFlow } from "@/components/QuoteFlowProvider";
+
+const { resumeDraft } = useQuoteFlow();
+const draft = await loadDraftRemote();           // reads cookie
+if (draft) resumeDraft(draft, "header_recovery");
+```
+
+### Endpoints
+
+| Method | Path                                | Purpose                          |
+|--------|-------------------------------------|----------------------------------|
+| GET    | `/api/draft`                        | Read by cookie                   |
+| GET    | `/api/draft?draftId=<id>`           | Read by ID (recovery link)       |
+| POST   | `/api/draft`                        | Upsert draft + (re)set cookie    |
+| DELETE | `/api/draft`                        | Wipe draft + cookie              |
+
+---
+
+## 11. Tracking
 
 Every flow event lands in `window.dataLayer` (GTM). Toggle GTM with
 `NEXT_PUBLIC_GTM_ID`. Open the browser console with

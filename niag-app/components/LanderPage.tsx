@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { SiteProvider } from "./SiteContext";
 import { QuoteFlowProvider } from "./QuoteFlowProvider";
 import Header from "./Header";
+import ResumeBanner from "./ResumeBanner";
 import LanderHero from "./LanderHero";
 import TrustStrip from "./TrustStrip";
 import HowItWorks from "./HowItWorks";
@@ -25,6 +26,7 @@ export default function LanderPage({
       <SiteProvider initialLanguage={language}>
         <QuoteFlowProvider>
           <Header />
+          <ResumeBanner />
           <LanderHero spec={spec} />
           {spec.sections.trustStrip ? <TrustStrip /> : null}
           {spec.sections.howItWorks ? <HowItWorks /> : null}

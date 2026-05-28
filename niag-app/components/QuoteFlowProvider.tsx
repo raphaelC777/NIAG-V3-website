@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useCallback, useContext, useEffect, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { EntryPoint, FormAnswers, LeadPayload, ProductType } from "@/types/lead";
 import { FLOWS, FLOW_TITLES, getStepLabel } from "@/lib/formSteps";
@@ -10,6 +10,15 @@ import { t } from "@/lib/i18n";
 import FormStep from "./FormStep";
 import BotProtection from "./BotProtection";
 import LeadCertScripts, { readLeadCerts } from "./LeadCertScripts";
+import {
+  saveDraftLocal,
+  saveDraftRemote,
+  loadDraftLocal,
+  loadDraftRemote,
+  clearDraftLocal,
+  clearDraftRemote,
+  type ClientDraft,
+} from "@/lib/draftClient";
 
 interface OpenOptions {
   zip?: string;
@@ -17,8 +26,16 @@ interface OpenOptions {
    * standalone /form/[product] route in a new tab. Configure per-CTA so
    * different lander variations can A/B the placement. */
   mode?: "modal" | "tab";
+  /** Pre-loaded draft (from /api/draft GET or localStorage) — when present
+   * we restore stepIndex + answers instead of starting from step 0. */
+  resumeFrom?: ClientDraft | null;
 }
-interface Ctx { open: (p: ProductType, ep: EntryPoint, opts?: OpenOptions) => void; close: () => void }
+interface Ctx {
+  open: (p: ProductType, ep: EntryPoint, opts?: OpenOptions) => void;
+  close: () => void;
+  /** Programmatic resume — called by ResumeBanner. */
+  resumeDraft: (draft: ClientDraft, ep?: EntryPoint) => void;
+}
 const QuoteCtx = createContext<Ctx | null>(null);
 
 export function useQuoteFlow() {
@@ -39,6 +56,8 @@ export function QuoteFlowProvider({ children }: { children: React.ReactNode }) {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [botToken, setBotToken] = useState<string>("");
   const [submit, setSubmit] = useState<Submitting>({ state: "idle" });
+  const [draftId, setDraftId] = useState<string | undefined>(undefined);
+  const remoteSaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isOpen = product !== null;
 
   const open = useCallback((p: ProductType, ep: EntryPoint, opts?: OpenOptions) => {
@@ -52,13 +71,40 @@ export function QuoteFlowProvider({ children }: { children: React.ReactNode }) {
       window.open(`${base}/${p}?${qs.toString()}`, "_blank", "noopener,noreferrer");
       return;
     }
-    setProduct(p); setEntryPoint(ep); setStepIndex(0);
-    setAnswers({ zip: opts?.zip });
+    setProduct(p);
+    setEntryPoint(ep);
+    // Restore from a passed-in draft when available; otherwise check
+    // localStorage for the same product as a last-resort fallback (server
+    // draft is preferred but may be unreachable).
+    const incoming = opts?.resumeFrom || loadDraftLocal(p);
+    if (incoming && incoming.product === p) {
+      setStepIndex(typeof incoming.stepIndex === "number" ? incoming.stepIndex : 0);
+      // Restore answers but never restore TCPA consent — must be re-checked.
+      const restored = { ...(incoming.answers || {}) } as FormAnswers;
+      delete (restored as Record<string, unknown>).consent;
+      // Pre-fill zip if caller passed one and draft didn't have one.
+      if (opts?.zip && !restored.zip) restored.zip = opts.zip;
+      setAnswers(restored);
+      setDraftId(incoming.draftId);
+      trackEvent(Events.FORM_START, {
+        productType: p, entryPoint: ep, language, abVariant: variant,
+        mode: "modal", resumed: true, atStep: incoming.stepIndex,
+      });
+    } else {
+      setStepIndex(0);
+      setAnswers({ zip: opts?.zip });
+      setDraftId(undefined);
+      trackEvent(Events.FORM_START, { productType: p, entryPoint: ep, language, abVariant: variant, mode: "modal" });
+    }
     setErrors({});
     setSubmit({ state: "idle" });
-    trackEvent(Events.FORM_START, { productType: p, entryPoint: ep, language, abVariant: variant, mode: "modal" });
     document.body.style.overflow = "hidden";
   }, [language, variant]);
+
+  const resumeDraft = useCallback((draft: ClientDraft, ep: EntryPoint = "deep_link") => {
+    if (!draft || !draft.product) return;
+    open(draft.product as ProductType, ep, { resumeFrom: draft });
+  }, [open]);
 
   const close = useCallback(() => {
     if (product && submit.state !== "success") {
@@ -82,6 +128,44 @@ export function QuoteFlowProvider({ children }: { children: React.ReactNode }) {
       stepName: step.id, stepIndex, stepCount: FLOWS[product].length,
     });
   }, [product, stepIndex, entryPoint, language, variant]);
+
+  // Autosave: persist progress on every step change. We DON'T persist on
+  // every keystroke — keystroke-level saves would hammer the API. Step
+  // change is the right granularity (mirrors how the user thinks about
+  // their progress).
+  useEffect(() => {
+    if (!product || submit.state === "success") return;
+    const draft: ClientDraft = {
+      draftId,
+      product,
+      language,
+      stepIndex,
+      answers,
+      abVariant: variant,
+      entryPoint,
+      landerSlug:
+        typeof window !== "undefined"
+          ? (() => {
+              const m = window.location.pathname.match(/\/(?:es\/)?lp\/([^/?#]+)/);
+              return m ? m[1] : undefined;
+            })()
+          : undefined,
+      updatedAt: new Date().toISOString(),
+    };
+    // localStorage first — synchronous, never fails on the user's side.
+    // Saves on every keystroke (cheap).
+    saveDraftLocal(draft);
+    // Remote — debounced 800ms so fast typists don't hammer /api/draft.
+    if (remoteSaveTimer.current) clearTimeout(remoteSaveTimer.current);
+    remoteSaveTimer.current = setTimeout(() => {
+      saveDraftRemote(draft).then((res) => {
+        if (res.draftId && res.draftId !== draftId) setDraftId(res.draftId);
+      });
+    }, 800);
+    return () => {
+      if (remoteSaveTimer.current) clearTimeout(remoteSaveTimer.current);
+    };
+  }, [product, stepIndex, answers, language, variant, entryPoint, draftId, submit.state]);
 
   function validateStepAndCollect(): string | null {
     if (!product) return null;
@@ -214,6 +298,11 @@ export function QuoteFlowProvider({ children }: { children: React.ReactNode }) {
         return;
       }
       trackEvent(Events.LEAD_SUBMIT_SUCCESS, { productType: product, language, abVariant: variant, leadId: data.leadId });
+      // Wipe the draft now that the lead is in. localStorage clears
+      // synchronously; the remote DELETE is best-effort.
+      clearDraftLocal(product);
+      clearDraftRemote();
+      setDraftId(undefined);
       // Route to thank-you with product + zip in query
       const qs = new URLSearchParams({ product, zip: answers.zip || "" }).toString();
       const base = language === "es" ? "/es/thank-you" : "/thank-you";
@@ -229,7 +318,7 @@ export function QuoteFlowProvider({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <QuoteCtx.Provider value={{ open, close }}>
+    <QuoteCtx.Provider value={{ open, close, resumeDraft }}>
       {children}
       {isOpen && product ? (
         <div className="fixed inset-0 z-[200] overflow-y-auto bg-cream">

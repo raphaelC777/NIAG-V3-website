@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { SiteProvider, useSite } from "./SiteContext";
 import { QuoteFlowProvider, useQuoteFlow } from "./QuoteFlowProvider";
 import Header from "./Header";
+import ResumeBanner from "./ResumeBanner";
 import Hero from "./Hero";
 import TrustStrip from "./TrustStrip";
 import ProductCards from "./ProductCards";
@@ -22,6 +23,7 @@ function HomeContent() {
   return (
     <>
       <Header />
+      <ResumeBanner />
       <Hero />
       <TrustStrip />
       <ProductCards />
