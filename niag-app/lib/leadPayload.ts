@@ -22,6 +22,14 @@ export function buildNormalizedLead(
     language: raw.language,
     ab_variant: raw.abVariant,
     entry_point: raw.entryPoint,
+    lander_slug: raw.landerSlug,
+    // Compliance certs — populated client-side from Jornaya / TrustedForm.
+    // Empty string when the integration is not enabled; partners that require
+    // these will reject leads with blank values, which is the desired behavior.
+    jornaya_leadid: raw.certs?.jornayaLeadId,
+    trustedform_cert_url: raw.certs?.trustedFormCertUrl,
+    trustedform_ping_url: raw.certs?.trustedFormPingUrl,
+    trustedform_cert_token: raw.certs?.trustedFormCertToken,
     zip: raw.answers.zip,
     first_name: raw.answers.name?.first,
     last_name: raw.answers.name?.last,

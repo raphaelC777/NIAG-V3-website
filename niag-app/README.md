@@ -52,14 +52,26 @@ under `NEXT_PUBLIC_*`. The included code only reads them in route handlers.
 |-----------------------------------|------------------------------------------------------------------------------|
 | `/`                               | English homepage                                                             |
 | `/es`                             | Spanish homepage                                                             |
-| `/quote/[product]`                | Opens the homepage with the product flow auto-opened                         |
+| `/lp/[slug]`                      | Per-product landing-page variation (registry in `lib/landers.ts`)            |
+| `/es/lp/[slug]`                   | Same, Spanish                                                                |
+| `/quote/[product]`                | Opens the homepage with the product flow auto-opened (modal mode)            |
 | `/es/quote/[product]`             | Same, Spanish                                                                |
+| `/form/[product]`                 | Standalone intake form — designed to be opened in a new tab                  |
+| `/es/form/[product]`              | Same, Spanish                                                                |
 | `/thank-you?product=…&zip=…`      | Post-submit results page                                                     |
 | `/es/thank-you?product=…&zip=…`   | Spanish results page                                                         |
 | `POST /api/lead`                  | Validates, verifies bot token, builds payload, fans out to LeadProsper + GHL |
 | `GET /api/geo`                    | Returns `{ city, region, country, postal, source, confidence }`              |
 
 `[product]` is one of: `bundle | auto | home | renters | health`.
+`[slug]` is any key in `LANDERS` from [`lib/landers.ts`](lib/landers.ts) — see
+[`FORM_INTEGRATION.md`](FORM_INTEGRATION.md) for how to add new ones.
+
+## Intake form
+
+See [`FORM_INTEGRATION.md`](FORM_INTEGRATION.md) for the full guide on opening
+the form in modal vs. new-tab mode, wiring Cloudflare Turnstile, Jornaya
+LeadiD, TrustedForm, and adding new landing-page variations.
 
 ## A/B/C variants
 

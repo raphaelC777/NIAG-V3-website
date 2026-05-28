@@ -49,11 +49,24 @@ export interface UtmPayload {
   affiliate_id?: string | null;
 }
 
+export interface LeadCerts {
+  /** Jornaya LeadiD token (https://www.jornaya.com). Public, safe to log. */
+  jornayaLeadId?: string;
+  /** TrustedForm cert URL (https://www.activeprospect.com/products/trustedform/). */
+  trustedFormCertUrl?: string;
+  /** TrustedForm ping URL (used to claim cert later). */
+  trustedFormPingUrl?: string;
+  /** TrustedForm cert token (alternative to cert URL). */
+  trustedFormCertToken?: string;
+}
+
 export interface LeadPayload {
   productType: ProductType;
   language: Language;
   abVariant: ABVariant;
   entryPoint: EntryPoint;
+  /** Optional landing-page slug, e.g. "bundle-savings-v2". Used for attribution. */
+  landerSlug?: string;
   answers: FormAnswers;
   consent: {
     tcpaConsent: boolean;
@@ -65,5 +78,6 @@ export interface LeadPayload {
   };
   utm: UtmPayload;
   botToken?: string;
+  certs?: LeadCerts;
   submittedAt: string;
 }
