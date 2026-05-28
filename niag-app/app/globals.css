@@ -89,6 +89,18 @@ h1, h2, h3, h4 {
   to { opacity: 1; transform: none; }
 }
 
+/* Phone quote row staggered entrance */
+@keyframes niag-quote-row-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Floating badge hover effect */
+@keyframes niag-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .niag-marquee-track { animation: none !important; }
+  .niag-marquee-track, .niag-quote-row, .niag-float-badge { animation: none !important; }
 }
