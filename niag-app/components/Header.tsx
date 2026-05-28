@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useSite } from "./SiteContext";
 import { t } from "@/lib/i18n";
 import { trackEvent, Events } from "@/lib/tracking";
+import { PhoneIcon } from "./icons";
 import { useQuoteFlow } from "./QuoteFlowProvider";
 
 export default function Header() {
@@ -18,6 +19,10 @@ export default function Header() {
     { key: "nav.renters", product: "renters" },
     { key: "nav.health", product: "health" },
   ];
+
+  function callExpert(loc: string) {
+    trackEvent(Events.PHONE_CLICK, { location: loc, language, abVariant: variant });
+  }
 
   return (
     <header className="sticky top-0 z-40 border-b border-line" style={{ background: "#FAF7F2" }}>
@@ -51,6 +56,11 @@ export default function Header() {
             <span className="text-line">·</span>
             <span className={language === "es" ? "text-navy" : "text-ink-soft"}>ES</span>
           </button>
+          <a href="tel:18005551234" onClick={() => callExpert("header")}
+             className="hidden lg:inline-flex items-center gap-2 text-sm font-semibold text-navy">
+            <PhoneIcon className="h-4 w-4" />
+            <span>{t(language, "nav.callExpert")}</span>
+          </a>
           <button onClick={() => { trackEvent(Events.PRODUCT_SELECT, { productType: defaultProduct, entryPoint: "header", language, abVariant: variant }); open(defaultProduct, "header"); }}
                   className="btn-primary btn-sm hidden md:inline-flex">
             {copy.primaryCTA}
@@ -82,6 +92,10 @@ export default function Header() {
                   className="block w-full border-b border-line py-3.5 text-left font-medium text-ink">
               {t(language, "nav.resources")}
             </Link>
+            <a href="tel:18005551234" onClick={() => { setDrawerOpen(false); callExpert("mobile_drawer"); }}
+               className="block w-full border-b border-line py-3.5 text-left font-medium text-ink">
+              {t(language, "nav.callExpert")}
+            </a>
           </div>
         </div>
       ) : null}

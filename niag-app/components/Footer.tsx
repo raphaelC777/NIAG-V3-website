@@ -11,6 +11,7 @@ const socials = [
   { label: "X", href: "#x", icon: <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.65l-5.21-6.81-5.96 6.81H1.69l7.73-8.84L1.27 2.25h6.82l4.71 6.23 5.44-6.23zm-1.16 17.52h1.83L7.01 4.13H5.05L17.08 19.77z"/></svg> },
   { label: "Instagram", href: "#instagram", icon: <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none" /></svg> },
   { label: "YouTube", href: "#youtube", icon: <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M23 12s0-3.6-.46-5.32a2.78 2.78 0 0 0-1.96-1.96C18.86 4.25 12 4.25 12 4.25s-6.86 0-8.58.47A2.78 2.78 0 0 0 1.46 6.68C1 8.4 1 12 1 12s0 3.6.46 5.32a2.78 2.78 0 0 0 1.96 1.96c1.72.47 8.58.47 8.58.47s6.86 0 8.58-.47a2.78 2.78 0 0 0 1.96-1.96C23 15.6 23 12 23 12zM9.75 15.5v-7l6 3.5-6 3.5z"/></svg> },
+  { label: "Phone", href: "tel:18005551234", icon: <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /></svg> },
 ];
 
 export default function Footer() {
@@ -63,6 +64,7 @@ export default function Footer() {
               <ul className="flex flex-col gap-2 list-none m-0 p-0">
                 <li><Link href={language === "es" ? "/es#blog" : "/#blog"} className="text-sm hover:text-green transition-colors" style={{ color: "rgba(250,247,242,.7)", textDecoration: "none" }}>{t(language, "footer.blog")}</Link></li>
                 <li><a href="#" className="text-sm hover:text-green transition-colors" style={{ color: "rgba(250,247,242,.7)", textDecoration: "none" }}>{t(language, "footer.help")}</a></li>
+                <li><a href="tel:18005551234" onClick={() => trackEvent(Events.PHONE_CLICK, { location: "footer", language, abVariant: variant })} className="text-sm hover:text-green transition-colors" style={{ color: "rgba(250,247,242,.7)", textDecoration: "none" }}>{t(language, "nav.callExpert")}</a></li>
               </ul>
             </div>
             <div>

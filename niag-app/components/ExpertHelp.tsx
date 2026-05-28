@@ -2,50 +2,33 @@
 import { useSite } from "./SiteContext";
 import { useQuoteFlow } from "./QuoteFlowProvider";
 import { t } from "@/lib/i18n";
-
-const CHECK = (
-  <svg viewBox="0 0 20 20" width="20" height="20" fill="none" className="shrink-0">
-    <circle cx="10" cy="10" r="10" fill="#22C55E" opacity=".12" />
-    <path d="M6.5 10.5 8.75 12.75 13.5 7.5" stroke="#22C55E" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
+import { trackEvent, Events } from "@/lib/tracking";
+import { PhoneIcon } from "./icons";
 
 export default function ExpertHelp() {
-  const { language, defaultProduct } = useSite();
+  const { language, variant, defaultProduct } = useSite();
   const { open } = useQuoteFlow();
-  const bullets = [
-    t(language, "twocol.bullet1"),
-    t(language, "twocol.bullet2"),
-    t(language, "twocol.bullet3"),
-  ];
   return (
     <section className="py-16">
       <div className="container-wide">
-        <div className="mx-auto max-w-[720px] overflow-hidden rounded-2xl bg-navy text-center" style={{ boxShadow: "0 20px 48px rgba(10,31,68,.18)" }}>
-          <div style={{ padding: "48px 32px 40px" }}>
-            <h2 className="font-serif text-3xl font-semibold text-white md:text-4xl">
-              {t(language, "twocol.heading")}
-            </h2>
-            <p className="mx-auto mt-3 max-w-md text-base" style={{ color: "rgba(250,247,242,.75)" }}>
-              {t(language, "twocol.sub")}
-            </p>
-            <ul className="mx-auto mt-6 flex flex-col items-center gap-2.5 sm:flex-row sm:justify-center sm:gap-5">
-              {bullets.map((b) => (
-                <li key={b} className="flex items-center gap-2 text-sm font-medium text-cream">
-                  {CHECK} {b}
-                </li>
-              ))}
-            </ul>
-            <button
-              onClick={() => open(defaultProduct, "mid_cta")}
-              className="btn-primary btn-lg mt-8"
-              style={{ fontSize: 17, minWidth: 240 }}
-            >
-              {t(language, "twocol.cta")}
+        <h2 className="mb-9 text-center font-serif text-3xl font-semibold text-navy">{t(language, "twocol.heading")}</h2>
+        <div className="grid gap-6 md:grid-cols-2">
+          <div className="rounded-lg border border-line bg-white p-8">
+            <h3 className="font-serif text-2xl font-semibold text-navy">{t(language, "twocol.left.title")}</h3>
+            <p className="mt-2 text-ink-soft">{t(language, "twocol.left.desc")}</p>
+            <button onClick={() => open(defaultProduct, "mid_cta")} className="btn-primary mt-5">
+              {t(language, "twocol.left.cta")}
             </button>
-            <p className="mt-3 text-xs" style={{ color: "rgba(250,247,242,.5)" }}>
-              {t(language, "twocol.footnote")}
-            </p>
+          </div>
+          <div className="rounded-lg bg-navy p-8 text-cream">
+            <h3 className="font-serif text-2xl font-semibold text-white">{t(language, "twocol.right.title")}</h3>
+            <p className="mt-2 text-cream/85">{t(language, "twocol.right.desc")}</p>
+            <a href="tel:18005551234"
+               onClick={() => trackEvent(Events.PHONE_CLICK, { location: "twocol_expert", language, abVariant: variant })}
+               className="btn-primary mt-5">
+              <PhoneIcon className="h-4 w-4" />
+              <span>{t(language, "twocol.right.cta")}</span>
+            </a>
           </div>
         </div>
       </div>
